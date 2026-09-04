@@ -1,15 +1,16 @@
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 
 const LINKS = [
-  { href: '#features', label: 'Features' },
-  { href: '#how-it-works', label: 'How it works' },
-  { href: '#pricing', label: 'Pricing' },
-  { href: '#faq', label: 'FAQ' },
+  { href: '/#features', label: 'Features' },
+  { href: '/#how-it-works', label: 'How it works' },
+  { href: '/#pricing', label: 'Pricing' },
+  { href: '/#faq', label: 'FAQ' },
 ]
 
 function Logo() {
   return (
-    <a href="#top" className="flex items-center gap-2 shrink-0">
+    <Link to="/" className="flex items-center gap-2 shrink-0">
       <span className="grid h-8 w-8 place-items-center rounded-lg bg-brand-500">
         <svg width="16" height="16" viewBox="0 0 32 32" fill="none">
           <path d="M9 13.5V18.5" stroke="white" strokeWidth="2.6" strokeLinecap="round" />
@@ -19,7 +20,7 @@ function Logo() {
         </svg>
       </span>
       <span className="font-display text-lg font-bold tracking-tight text-ink">ZVoice</span>
-    </a>
+    </Link>
   )
 }
 
@@ -46,13 +47,13 @@ export default function Navbar() {
 
         <nav className="hidden items-center gap-8 md:flex">
           {LINKS.map((l) => (
-            <a
+            <Link
               key={l.href}
-              href={l.href}
+              to={l.href}
               className="text-sm font-medium text-ink-soft transition-colors hover:text-ink"
             >
               {l.label}
-            </a>
+            </Link>
           ))}
         </nav>
 
@@ -60,12 +61,12 @@ export default function Navbar() {
           <a href="#login" className="text-sm font-medium text-ink-soft hover:text-ink">
             Log in
           </a>
-          <a
-            href="#pricing"
+          <Link
+            to="/#pricing"
             className="rounded-full bg-ink px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-brand-600"
           >
             Start free trial
-          </a>
+          </Link>
         </div>
 
         <button
@@ -92,25 +93,26 @@ export default function Navbar() {
         <div className="border-t border-line bg-white px-6 py-4 md:hidden">
           <nav className="flex flex-col gap-4">
             {LINKS.map((l) => (
-              <a
+              <Link
                 key={l.href}
-                href={l.href}
+                to={l.href}
                 onClick={() => setOpen(false)}
                 className="text-sm font-medium text-ink-soft"
               >
                 {l.label}
-              </a>
+              </Link>
             ))}
             <div className="mt-2 flex flex-col gap-3 border-t border-line pt-4">
               <a href="#login" className="text-sm font-medium text-ink-soft">
                 Log in
               </a>
-              <a
-                href="#pricing"
+              <Link
+                to="/#pricing"
+                onClick={() => setOpen(false)}
                 className="rounded-full bg-ink px-4 py-2 text-center text-sm font-semibold text-white"
               >
                 Start free trial
-              </a>
+              </Link>
             </div>
           </nav>
         </div>

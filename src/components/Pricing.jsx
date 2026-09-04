@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 const PLANS = [
   {
     name: 'Starter',
@@ -38,6 +39,18 @@ const PLANS = [
     cta: 'Talk to sales',
     highlighted: false,
   },
+]
+
+/* Confirm every line against your actual billing setup before launch. */
+const BILLING_TERMS = [
+  ['Billing frequency', 'Monthly, charged on the same date each month'],
+  ['Included voice minutes', '300 (Starter) · 1,500 (Growth) · custom (Enterprise)'],
+  ['Overage pricing', '$0.12 per additional minute, billed in arrears'],
+  ['Trial', '14 days free — no card required, no charge if you cancel first'],
+  ['Auto-renewal', 'Plans renew automatically until cancelled'],
+  ['Cancellation', 'Cancel anytime; access continues to the end of the paid period'],
+  ['Taxes', 'Prices exclude VAT/GST, applied at checkout where applicable'],
+  ['Unused minutes', 'Do not roll over to the next billing period'],
 ]
 
 function Check() {
@@ -104,6 +117,18 @@ export default function Pricing() {
                 {p.cta}
               </a>
 
+              <p className="mt-3 text-center text-[11px] leading-relaxed text-ink-soft">
+                By creating an account you agree to the{' '}
+                <Link to="/legal/terms-of-service" className="underline hover:text-ink">
+                  Terms of Service
+                </Link>{' '}
+                and acknowledge the{' '}
+                <Link to="/legal/privacy-policy" className="underline hover:text-ink">
+                  Privacy Policy
+                </Link>
+                .
+              </p>
+
               <ul className="mt-8 space-y-3">
                 {p.features.map((f) => (
                   <li key={f} className="flex items-start gap-2 text-sm text-ink-soft">
@@ -116,6 +141,35 @@ export default function Pricing() {
               </ul>
             </div>
           ))}
+        </div>
+
+        {/* Material billing terms belong on the pricing page itself, not buried
+            inside the legal pages. */}
+        <div data-reveal className="mt-12 rounded-2xl border border-line bg-white p-6 sm:p-8">
+          <h3 className="text-sm font-semibold text-ink">Billing conditions</h3>
+          <dl className="mt-5 grid gap-x-10 gap-y-4 sm:grid-cols-2 lg:grid-cols-3">
+            {BILLING_TERMS.map(([term, detail]) => (
+              <div key={term}>
+                <dt className="text-xs font-semibold uppercase tracking-wide text-ink-soft">
+                  {term}
+                </dt>
+                <dd className="mt-1 text-sm text-ink">{detail}</dd>
+              </div>
+            ))}
+          </dl>
+
+          <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-line pt-5 text-xs">
+            <span className="font-medium text-ink-soft">Before you buy:</span>
+            <Link to="/legal/refund-policy" className="text-brand-600 underline hover:text-brand-700">
+              Refund Policy
+            </Link>
+            <Link to="/legal/cancellation-policy" className="text-brand-600 underline hover:text-brand-700">
+              Cancellation Policy
+            </Link>
+            <Link to="/legal/terms-of-service" className="text-brand-600 underline hover:text-brand-700">
+              Terms of Service
+            </Link>
+          </div>
         </div>
       </div>
     </section>

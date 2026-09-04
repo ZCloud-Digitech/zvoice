@@ -1,32 +1,29 @@
+import { Route, Routes } from 'react-router-dom'
 import useScrollReveal from './lib/useScrollReveal'
+import useRouteScroll from './lib/useRouteScroll'
 import Navbar from './components/Navbar'
-import Hero from './components/Hero'
-import CallFlow from './components/CallFlow'
-import Features from './components/Features'
-import HowItWorks from './components/HowItWorks'
-import UseCases from './components/UseCases'
-import Pricing from './components/Pricing'
-import FAQ from './components/FAQ'
-import CTA from './components/CTA'
 import Footer from './components/Footer'
+import CookieConsent from './components/CookieConsent'
+import Home from './pages/Home'
+import LegalPage from './pages/LegalPage'
+import NotFound from './pages/NotFound'
 
 export default function App() {
   useScrollReveal()
+  useRouteScroll()
 
   return (
     <div className="min-h-screen bg-white">
       <Navbar />
       <main>
-        <Hero />
-        <CallFlow />
-        <Features />
-        <HowItWorks />
-        <UseCases />
-        <Pricing />
-        <FAQ />
-        <CTA />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/legal/:slug" element={<LegalPage />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
       </main>
       <Footer />
+      <CookieConsent />
     </div>
   )
 }
