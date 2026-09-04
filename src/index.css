@@ -1,0 +1,103 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", system-ui, "Segoe UI", Roboto, sans-serif;
+  --font-display: "Manrope", "Inter", system-ui, sans-serif;
+
+  --color-ink: #0b0d17;
+  --color-ink-soft: #4b4f5e;
+  --color-mist: #f6f7fb;
+  --color-line: #e7e8f0;
+  --color-brand-50: #eef0ff;
+  --color-brand-100: #e0e3ff;
+  --color-brand-500: #4f46e5;
+  --color-brand-600: #4338ca;
+  --color-brand-700: #3730a3;
+  --color-accent-500: #14b8a6;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  color: var(--color-ink);
+  background: #ffffff;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: var(--color-brand-100);
+  color: var(--color-brand-700);
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+/* ---- Hero motion ---- */
+@keyframes zv-wave {
+  0%, 100% { transform: scaleY(0.45); opacity: 0.55; }
+  50% { transform: scaleY(1); opacity: 1; }
+}
+
+@keyframes zv-ring {
+  0% { transform: scale(0.75); opacity: 0.45; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+
+@keyframes zv-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes zv-word-in {
+  0% { opacity: 0; transform: translateY(14px) rotate(1.5deg); filter: blur(4px); }
+  100% { opacity: 1; transform: translateY(0) rotate(0); filter: blur(0); }
+}
+
+@keyframes zv-draw {
+  from { stroke-dashoffset: 240; }
+  to { stroke-dashoffset: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [class*="zv-anim"], .zv-anim { animation: none !important; }
+}
+
+/* ---- Scroll behaviour ---- */
+/* Anchored sections must clear the sticky navbar when jumped to. */
+section[id] {
+  scroll-margin-top: 5.5rem;
+}
+
+/* Reveal-on-scroll. The hiding rule is gated behind .zv-js, which the reveal
+   hook adds — without JS (or if IntersectionObserver never reports) the page
+   renders fully visible instead of blank. */
+.zv-js [data-reveal] {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.zv-js [data-reveal].zv-in {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 0.7s cubic-bezier(0.2, 0.7, 0.3, 1),
+    transform 0.7s cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .zv-js [data-reveal],
+  .zv-js [data-reveal].zv-in {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
